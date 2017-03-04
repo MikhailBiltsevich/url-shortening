@@ -1,0 +1,25 @@
+{
+  "name": "url-shortening",
+  "version": "1.0.0",
+  "description": "Express + MongoDB app for url shortening",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MikhailBiltsevich/url-shortening.git"
+  },
+  "author": "Mikhail Biltsevich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MikhailBiltsevich/url-shortening/issues"
+  },
+  "homepage": "https://github.com/MikhailBiltsevich/url-shortening#readme",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "express-session": "^1.15.1",
+    "mongoose": "^4.8.5"
+  }
+}
