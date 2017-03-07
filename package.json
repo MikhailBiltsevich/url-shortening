@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MikhailBiltsevich/url-shortening#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.16.1",
     "express": "^4.14.1",
     "express-session": "^1.15.1",
