@@ -22,12 +22,14 @@ module.exports = function (app) {
     Url.findById(id)
       .then(function (doc) {
         if (doc) {
-          return response.send(doc);
+          var webhost = require('../config').webhost;
+          return response.send({url: doc, webhost: webhost});
       }
-      response.status(404).send();
+      response.status(404).send('Ссылка не найдена');
       })
       .catch(function (err) {
         console.log(err);
+        response.end();
       })
   });
 
@@ -51,14 +53,18 @@ module.exports = function (app) {
       });
   });
 
-  app.get('/cabinet/urls', function (request, response) {
+  app.get('/cabinet', function (request, response) {
     var user = request.session.user;
     if (!user) {
       return response.status(403).send();
     }
     Url.find({author: user})
       .then(function (docs) {
-        response.send(docs);
+        response.render('cabinet', {
+          urls: docs,
+          user: user,
+          webhost: require('../config').webhost
+      });
       })
       .catch(function (err) {
         console.log(err);
@@ -90,16 +96,19 @@ module.exports = function (app) {
     Url.findById(id)
       .then(function (doc) {
         if (doc.author !== request.session.user) {
-          return response.status(403).send();
+          response.status(404).send('Ссылка не принадлежит вам');
         }
 
-        doc.description = description;
-        doc.tags = tags;
-        response.send(doc);
+        doc.update({$set: {tags: tags, description: description}}, {new: true})
+          .then(function (doc){
+            response.send(doc);
+          })
+          .catch(function (err) {
+            response.status(500).send('При обновлении документа произошла ошибка, попробуйте позже');
+          })
       })
       .catch(function (err) {
-        console.log(err);
-        response.status(500).send();
+        response.status(404).send('Отсутствует ссылка с заданным идентификатором');
       });
   });
 }

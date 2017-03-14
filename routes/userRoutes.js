@@ -10,12 +10,15 @@ module.exports = function (app) {
 
     User.create({login: login, dataPassword: {password, repeatedPassword}})
       .then(function (doc) {
-        req.session.user = login;
-        response.redirect('/');
+        request.session.user = doc.login;
+        response.status(200).send();
       })
       .catch(function (err) {
-        console.log(err.message);
-        response.send('При регистрации произошла ошибка. Попробуйте снова');
+        var responseMessage;
+        if (err.code === 11000) {
+          responseMessage = 'Пользователь с таким логином уже существует';
+        }
+        response.status(405).send(responseMessage);
       });
   });
 
@@ -29,12 +32,13 @@ module.exports = function (app) {
           .then(function (isSuccess) {
             if (isSuccess) {
               request.session.user = doc.login;
+              return response.status(200).send();
             }
-            response.redirect('/');
+              response.status(404).send();
           });
       })
       .catch(function (err) {
-        response.redirect('/');
+        response.status(404).send();
       });
   });
 
