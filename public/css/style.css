@@ -1,0 +1,13 @@
+.short-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+}
+
+body {
+    padding-bottom: 70px;
+}
+
+.bottom-padding {
+    padding-bottom: 15px;
+}

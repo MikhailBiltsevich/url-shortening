@@ -1,0 +1,104 @@
+<% layout('layout') -%>
+<% script('js/cabinet.js') -%>
+
+<div class="container center-block">
+    <div class="row">
+        <div class="bottom-padding col-lg-2 col-md-2 col-sm-2">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#urls" data-toggle="pill">Ссылки</a></li>
+                <li><a href="#addUrl" data-toggle="pill">Добавить ссылку</a></li>
+                <li><a href="#changeUrl" data-toggle="pill">Изменить ссылку</a></li>
+            </ul>
+        </div>
+        
+        <div class="col-lg-10 col-sm-10 col-md-10">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="urls">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>ID</td>
+                                    <td>Короткая ссылка</td>
+                                    <td>Полная ссылка</td>
+                                    <td>Описание</td>
+                                    <td>Теги</td>
+                                    <td>Количество переходов</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% urls.forEach(function (url) { %>
+                                <tr>
+                                    <td><%=url._id%></td>
+                                    <td><a href=<%=webhost + url._id.toString(36)%> target="_blank"><%=webhost + url._id.toString(36)%></a></td>
+                                    <td class="short-text"><a href=<%=url.longUrl%> target="_blank"><%=url.longUrl%></a></td>
+                                    <%if(url.description) { %>
+                                    <td><%=url.description%></td>
+                                    <% } else { %>
+                                    <td>-</td>
+                                    <% } %>
+                                    <td><%=url.tags%></td>
+                                    <td><%=url.amountRedirections%></td>
+                                </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="addUrl">
+                    <form id="createUrlForm">
+                        <div class="form-group">
+                            <label class="sr-only" for="author">Автор</label>
+                            <input type="text" class="form-control" id="author" placeholder="Автор" value=<%=user%> disabled/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="longUrl">Полная ссылка</label>
+                            <input type="url" class="form-control" id="longUrl" placeholder="Полная ссылка" required/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="description">Описание</label>
+                            <textarea class="form-control" rows="3" id="description" placeholder="Описание"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="tags">Теги</label>
+                            <input type="text" class="form-control" id="tags" placeholder="Теги"/>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Создать</button>
+                        </div>
+                    </form>
+                    <div class="alert alert-danger hidden">
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="changeUrl">
+                    <form id="changeUrlForm">
+                        <div class="form-group">
+                            <label class="sr-only" for="id">Автор</label>
+                            <input type="number" class="form-control" id="id" placeholder="ID ссылки" required/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="description">Описание</label>
+                            <textarea class="form-control" rows="3" id="description" placeholder="Описание"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="tags">Теги</label>
+                            <input type="text" class="form-control" id="tags" placeholder="Теги"/>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Изменить</button>
+                        </div>
+                    </form>
+                    <div class="alert alert-danger hidden">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

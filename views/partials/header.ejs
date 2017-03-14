@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <span class="sr-only">Открыть меню</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand hidden-sm" href="/">Сокращатель ссылок</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-menu">
+                    <ul class="nav navbar-nav">
+                        <% if (!user) { %>
+                        <li><a href="/registration">Регистрация</a></li>
+                        <% } else { %>
+                            <li><a href="/cabinet">Управление ссылками</a></li>
+                            <li><a href="/logout">Выйти</a></li>
+                        <% } %>
+                    </ul>
+                    <% if (!user) { %>
+                    <form id="loginForm" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <label class="sr-only" for="login">Логин</label>
+                            <input id="userName" class="form-control input" type="text"placeholder="Логин" required/>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="sr-only" for="password">Пароль</label>
+                            <input id="password" class="form-control input" type="password" placeholder="Пароль" required/>
+                        </div>
+                            
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </form>
+                    <% } else { %>
+                    <div class="navbar-right">
+                        <p class="navbar-text">Вы вошли как <strong><%=user%></strong></p>
+                    </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

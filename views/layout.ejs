@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Сервис сокращения ссылок</title>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+    <%-partial('partials/header')%>
+
+    <%-body -%>
+
+    <%-partial('partials/footer')%>
+
+    <script  src="js/jquery-3.1.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <%- scripts %>
+    <script>
+        function login(login, password) {
+                $.ajax({
+                    url: '/login',
+                    contentType: 'application/json',
+                    method: 'POST',
+                    data: JSON.stringify({
+                        login: login,
+                        password: password
+                    }),
+                    success: function () {
+                        $('#loginForm>.form-group').addClass('has-success');
+                        window.location.reload();
+                    },
+                    error: function() {
+                        var formElements = $('#loginForm>.form-group');
+                        formElements.addClass('has-error');
+                        setTimeout(function () {
+                            formElements.removeClass('has-error');
+                        }, 1500);
+                    }
+                });
+            }
+
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();
+                login(this.elements['userName'].value, this.elements['password'].value);
+                this.reset();
+            });
+    </script>
+</body>
+</html>

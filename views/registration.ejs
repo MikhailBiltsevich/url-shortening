@@ -1,0 +1,38 @@
+<% layout('layout') -%>
+<% script('js/registration.js') -%>
+
+<div class="container center-block">
+    <div class="row">
+        <div id="container" class="col-xs-8 col-xs-offset-2 col-md-offset-4 col-md-4">
+            <div class="alert alert-info">
+                <p>Пароль должен состоять из 6 и более латинских букв, цифр или '_'.
+                Логин должен состоять из 3 и более латинских букв, цифр или '_'.</p>
+            </div>
+
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label class="sr-only" for="login">Логин</label>
+                    <input type="text" class="form-control" id="login" placeholder="Логин" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="sr-only" for="password">Пароль</label>
+                    <input type="password" class="form-control" id="password" placeholder="Пароль" required>
+                </div>
+
+                <div class="form-group">
+                <label class="sr-only" for="repeatedPassword">Повторите пароль</label>
+                        <input type="password" class="form-control" id="repeatedPassword" placeholder="Повторите пароль" required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Регистрация</button>
+                </div>
+            </form>
+        </div>
+        <div id="registration" class="col-xs-8 col-xs-offset-2 col-md-offset-4 col-md-4">
+            <div class="alert alert-danger hidden">
+            </div>
+        </div>
+    </div>
+</div>
