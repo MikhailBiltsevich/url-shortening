@@ -27,9 +27,11 @@ function search(url) {
             $('#findedUrl>#longUrl').text(data.url.longUrl);
             $('#findedUrl>#shortUrl').text(data.webhost + data.url._id.toString(36));
             $('#findedUrl>#description').text(data.url.description);
-            data.url.tags.forEach(function (tag) {
+            if (data.url.tags) {
+                data.url.tags.forEach(function (tag) {
                 $('#findedUrl>#tags').append('<a href="/urls/' + tag + '" class="label label-primary">' + tag + '</a> ');
             });
+            }
         },
         error: function (error) {
             var errorBlock = $('div#searchResult>.alert');
