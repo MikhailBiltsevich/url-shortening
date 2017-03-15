@@ -4,7 +4,6 @@ $('#createUrlForm').submit(function (e) {
     var description = this.elements['description'].value;
     var tags = (this.elements['tags'].value).match(/[\wа-я]+/gi);
     createUrl(longUrl, description, tags);
-    this.reset();
 });
 
 function createUrl(longUrl, description, tags) {
@@ -33,7 +32,6 @@ $('#changeUrlForm').submit(function (e) {
     var id = parseInt(this.elements['id'].value);
     var description = this.elements['description'].value;
     var tags = (this.elements['tags'].value).match(/[\wа-я]+/gi);
-    this.reset();
     changeUrl(id, description, tags);
 });
 

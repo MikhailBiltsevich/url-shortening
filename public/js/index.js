@@ -24,8 +24,12 @@ function search(url) {
             $('div#searchResult>.alert').addClass('hidden');
 
             $('#findedUrl>#author').text(data.url.author);
-            $('#findedUrl>#longUrl').text(data.url.longUrl);
-            $('#findedUrl>#shortUrl').text(data.webhost + data.url._id.toString(36));
+            $('#findedUrl>#longUrl>*').remove();
+            $('#findedUrl>#longUrl').append('<a href="' + data.url.longUrl + '">' + data.url.longUrl + '</a>');
+
+            var shortUrl = data.webhost + data.url._id.toString(36);
+            $('#findedUrl>#shortUrl>*').remove();
+            $('#findedUrl>#shortUrl').append('<a href="' + shortUrl + '">' + shortUrl + '</a>');
             $('#findedUrl>#description').text(data.url.description);
             if (data.url.tags) {
                 data.url.tags.forEach(function (tag) {

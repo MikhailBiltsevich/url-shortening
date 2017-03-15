@@ -65,8 +65,7 @@ module.exports = function (app) {
         response.send(doc);
       })
       .catch(function (err) {
-        console.log(err);
-        response.end();
+        response.status(400).send('При создании ссылки произошла ошибка');
       });
   });
 

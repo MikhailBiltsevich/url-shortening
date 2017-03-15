@@ -18,6 +18,9 @@ module.exports = function (app) {
         if (err.code === 11000) {
           responseMessage = 'Пользователь с таким логином уже существует';
         }
+        else {
+          responseMessage = err.message;
+        }
         response.status(405).send(responseMessage);
       });
   });
