@@ -19,6 +19,7 @@ app.use(session({
   store: new MongoStore({mongooseConnection: mongoose.connection})
 }));
 app.use(express.static(__dirname + '/public'));
+app.use('/urls/:tag', express.static('public'));
 
 mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + config.db.name, function (err) {
   if (err) {

@@ -37,7 +37,11 @@
                                     <% } else { %>
                                     <td>-</td>
                                     <% } %>
-                                    <td><%=url.tags%></td>
+                                    <td>
+                                    <% url.tags.forEach(function (tag) { %>
+                                    <a href=<%='/urls/' + tag%> class="label label-primary"><%=tag%></a>
+                                    <% }); %>
+                                    </td>
                                     <td><%=url.amountRedirections%></td>
                                 </tr>
                                 <% }); %>

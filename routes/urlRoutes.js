@@ -4,14 +4,20 @@ mongoose.Promise = global.Promise;
 
 module.exports = function (app) {
   app.get('/urls/:tag', function (request, response) {
+    var user = request.session.user;
     var tag = request.params.tag;
     Url.find({tags: tag})
       .then(function (docs) {
-          response.send(docs);
+        response.render('urls', {
+          urls: docs,
+          user: user,
+          webhost: require('../config').webhost,
+          tag: tag
+        });
       })
       .catch(function (require, response){
         console.log(err);
-        response.end();
+        response.send();
       });
   });
 
@@ -64,7 +70,7 @@ module.exports = function (app) {
           urls: docs,
           user: user,
           webhost: require('../config').webhost
-      });
+        });
       })
       .catch(function (err) {
         console.log(err);

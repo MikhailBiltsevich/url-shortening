@@ -1,0 +1,47 @@
+<% layout('layout') -%>
+
+<div class="container center-block">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h3>
+                Результаты поиска по тегу "<strong><%=tag%></strong>"
+            </h3>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Автор</td>
+                            <td>Короткая ссылка</td>
+                            <td>Полная ссылка</td>
+                            <td>Описание</td>
+                            <td>Теги</td>
+                            <td>Количество переходов</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% urls.forEach(function (url) { %>
+                        <tr>
+                            <td><%=url._id%></td>
+                            <td><%=url.author%></td>
+                            <td><a href=<%=webhost + url._id.toString(36)%> target="_blank"><%=webhost + url._id.toString(36)%></a></td>
+                            <td class="short-text"><a href=<%=url.longUrl%> target="_blank"><%=url.longUrl%></a></td>
+                            <%if(url.description) { %>
+                            <td><%=url.description%></td>
+                            <% } else { %>
+                            <td>-</td>
+                            <% } %>
+                            <td>
+                            <% url.tags.forEach(function (tag) { %>
+                            <a href=<%='/urls/' + tag%> class="label label-primary"><%=tag%></a>
+                            <% }); %>
+                            </td>
+                            <td><%=url.amountRedirections%></td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
