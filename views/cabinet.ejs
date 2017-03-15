@@ -24,25 +24,29 @@
                                     <td>Описание</td>
                                     <td>Теги</td>
                                     <td>Количество переходов</td>
+                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% urls.forEach(function (url) { %>
-                                <tr>
+                                <%if (urls) urls.forEach(function (url) { %>
+                                <tr data-rowid=<%=url._id%>>
                                     <td><%=url._id%></td>
                                     <td><a href=<%=webhost + url._id.toString(36)%> target="_blank"><%=webhost + url._id.toString(36)%></a></td>
                                     <td class="short-text"><a href=<%=url.longUrl%> target="_blank"><%=url.longUrl%></a></td>
-                                    <%if(url.description) { %>
+                                    <%if (url.description) { %>
                                     <td><%=url.description%></td>
                                     <% } else { %>
                                     <td>-</td>
                                     <% } %>
                                     <td>
-                                    <% url.tags.forEach(function (tag) { %>
+                                    <%if (url.tags) url.tags.forEach(function (tag) { %>
                                     <a href=<%='/urls/' + tag%> class="label label-primary"><%=tag%></a>
                                     <% }); %>
                                     </td>
                                     <td><%=url.amountRedirections%></td>
+                                    <td>
+                                        <button data-id=<%=url._id%> class="btn btn-default btn-block">Изменить</button>
+                                    </td>
                                 </tr>
                                 <% }); %>
                             </tbody>
@@ -50,6 +54,12 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="addUrl">
+                    <div class="alert alert-info">
+                        <p>При создании ссылки можно не указывать описание и теги. 
+                        Теги могут состоять из латинских и русских 
+                        букв, нижнего подчеркивания и цифр. Все остальные символы будут проигнорированы.
+                        Разделяйте теги соответствующими знаками пунктуации</p>
+                    </div>
                     <form id="createUrlForm">
                         <div class="form-group">
                             <label class="sr-only" for="author">Автор</label>
@@ -79,6 +89,12 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="changeUrl">
+                    <div class="alert alert-info">
+                        <p>При изменении ссылки можно не указывать описание и теги. 
+                        Теги могут состоять из латинских и русских 
+                        букв, нижнего подчеркивания и цифр. Все остальные символы будут проигнорированы.
+                        Разделяйте теги соответствующими знаками пунктуации</p>
+                    </div>
                     <form id="changeUrlForm">
                         <div class="form-group">
                             <label class="sr-only" for="id">Автор</label>

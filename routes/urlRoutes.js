@@ -21,6 +21,17 @@ module.exports = function (app) {
       });
   });
 
+  app.get('/url/:id', function (request, response) {
+    var id = request.params.id;
+    Url.findById(id)
+      .then(function (doc) {
+        response.send(doc);
+      })
+      .catch(function (err) {
+        response.end();
+      })
+  })
+
   app.get('/about/:idUrl', function (request, response) {
     url = request.params.idUrl;
     var id = parseInt(url, 36);
