@@ -32,3 +32,5 @@ mongoose.connect('mongodb://' + config.db.host + ':' + config.db.port + '/' + co
       console.log('We are live on ' + config.port);
     });
 });
+
+module.exports = app;

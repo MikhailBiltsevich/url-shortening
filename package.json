@@ -4,7 +4,7 @@
   "description": "Express + MongoDB app for url shortening",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha ./test/*.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,10 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "mongoose": "^4.8.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.2.0"
   }
 }
