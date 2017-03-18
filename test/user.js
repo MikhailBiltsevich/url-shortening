@@ -19,6 +19,17 @@ describe('User', function () {
     });
   });
 
+  before(function (done) {
+    Url.remove({}, function (err) {
+      Url.count({}, function (err, number) {
+        expect(err).to.be.null;
+        expect(number).to.be.empty;
+
+        done();
+      });
+    });
+  });
+
   describe('POST запрос на создание пользователя', function () {
 
     it('Пользователь должен быть зарегистрирован', function (done) {
@@ -26,7 +37,7 @@ describe('User', function () {
         login: 'mikhail',
         password: 'qwerty123',
         repeatedPassword: 'qwerty123'
-      }
+      };
 
       var request = chai.request.agent(app);
       request
@@ -45,13 +56,13 @@ describe('User', function () {
         login: 'testUser',
         password: 'qwerty1232',
         repeatedPassword: 'qwerty1232'
-      }
+      };
       
       var data2 = {
         login: 'testUser2',
         password: 'qwerty1232',
         repeatedPassword: 'qwerty1232'
-      }
+      };
 
       var request = chai.request.agent(app);
       
@@ -76,7 +87,7 @@ describe('User', function () {
         login: 'testUser3',
         password: 'qwerty111',
         repeatedPassword: 'qwerty11'
-      }
+      };
 
       var request = chai.request.agent(app);
 
@@ -96,7 +107,7 @@ describe('User', function () {
         login: 'mikhail',
         password: 'qwerty',
         repeatedPassword: 'qwerty'
-      }
+      };
 
       var request = chai.request.agent(app);
 
@@ -116,7 +127,7 @@ describe('User', function () {
         login: 'te',
         password: 'qwerty111',
         repeatedPassword: 'qwerty111'
-      }
+      };
 
       var request = chai.request.agent(app);
 
@@ -149,7 +160,7 @@ describe('User', function () {
         login: 'пользователь',
         password: 'qwerty111',
         repeatedPassword: 'qwerty111'
-      }
+      };
 
       var request = chai.request.agent(app);
       
@@ -169,7 +180,7 @@ describe('User', function () {
         login: 'testUser4',
         password: 'qwer t y',
         repeatedPassword: 'qwer t y'
-      }
+      };
 
       var request = chai.request.agent(app);
       
@@ -189,7 +200,7 @@ describe('User', function () {
         login: 'testUser5',
         password: 'АБВГдеж',
         repeatedPassword: 'АБВГдеж'
-      }
+      };
 
       var request = chai.request.agent(app);
       
@@ -209,7 +220,7 @@ describe('User', function () {
         login: 'testUser5',
         password: 'qwery',
         repeatedPassword: 'qwery'
-      }
+      };
 
       chai.request(app)
         .post('/register')
