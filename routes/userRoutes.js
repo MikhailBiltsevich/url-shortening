@@ -4,6 +4,10 @@ mongoose.Promise = global.Promise;
 
 module.exports = function (app) {
   app.post('/register', function (request, response) {
+    if (request.session.user) {
+      return response.status(403).send();
+    }
+
     var login = request.body.login;
     var password = request.body.password;
     var repeatedPassword = request.body.repeatedPassword;
@@ -29,6 +33,10 @@ module.exports = function (app) {
     var login = request.body.login;
     var password = request.body.password;
 
+    if (request.session.user) {
+      return response.status(403).send();
+    }
+
     User.findOne({login: login})
       .then(function (doc) {
         doc.comparePasswords(password)
@@ -41,16 +49,13 @@ module.exports = function (app) {
           });
       })
       .catch(function (err) {
-        response.status(404).send();
+        response.status(405).send();
       });
   });
 
   app.get('/logout', function (request, response) {
     request.session.destroy(function (err) {
-      if (err) {
-        console.log(err);
-      }
+        response.redirect('/');
     });
-    response.redirect('/');
   });
 };

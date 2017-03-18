@@ -15,9 +15,9 @@ module.exports = function (app) {
           tag: tag
         });
       })
-      .catch(function (require, response){
+      .catch(function (err){
         console.log(err);
-        response.send();
+        response.status(404).send();
       });
   });
 
@@ -25,10 +25,14 @@ module.exports = function (app) {
     var id = request.params.id;
     Url.findById(id)
       .then(function (doc) {
-        response.send(doc);
+        if (doc) {
+          response.send(doc);
+        } else {
+          response.status(404).end();
+        }      
       })
       .catch(function (err) {
-        response.end();
+        response.status(404).end();
       })
   })
 
@@ -41,8 +45,8 @@ module.exports = function (app) {
         if (doc) {
           var webhost = require('../config').webhost;
           return response.send({url: doc, webhost: webhost});
-      }
-      response.status(404).send('Ссылка не найдена');
+        }
+        response.status(404).send('Ссылка не найдена');
       })
       .catch(function (err) {
         console.log(err);
@@ -112,7 +116,7 @@ module.exports = function (app) {
     Url.findById(id)
       .then(function (doc) {
         if (doc.author !== request.session.user) {
-          response.status(404).send('Ссылка не принадлежит вам');
+          return response.status(404).send('Ссылка не принадлежит вам');
         }
 
         doc.update({$set: {tags: tags, description: description}}, {new: true})
